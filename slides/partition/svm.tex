@@ -142,8 +142,10 @@ SVM就是试图把棍放在最佳位置，好让在棍的两边有尽可能大�
 
 
 \begin{frame}
-\frametitle{怎么求解SVM？}	
+\frametitle{怎么求解SVM？}
+给定训练样本集$D = \{(x_1,y_1),(x_2,y_2),\dots,(x_m,y_m)\}$
  如果一组二分类的样本可以用过一个线性超平面将其完全分开，那么这个划分的超平面可以通过线性方程来表示：
+ $$\boldsymbol{w}^T\boldsymbol{x}+b=0$$
  $$w^Tx +b = 0$$
 
            
