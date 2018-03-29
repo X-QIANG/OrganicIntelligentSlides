@@ -144,10 +144,9 @@ SVM就是试图把棍放在最佳位置，好让在棍的两边有尽可能大�
 \begin{frame}
 \frametitle{怎么求解SVM？}
 给定训练样本集$D = \{(x_1,y_1),(x_2,y_2),\dots,(x_m,y_m)\}$
- 如果一组二分类的样本可以用过一个线性超平面将其完全分开，那么这个划分的超平面可以通过线性方程来表示：
- $$\boldsymbol{w}^T\boldsymbol{x}+b=0$$
- $$w^Tx +b = 0$$
-
+ 如果可以用一个线性超平面将其完全分开，那么这个超平面可以表示为：
+\[\boldsymbol{w}^T\boldsymbol{x}+b=0\]
+ 其中$\boldsymbol{w}$决定了平面的方向，而b决定了平面与原点之间的距离。
            
 	\begin{figure}[ht]
 	\centering
@@ -157,3 +156,54 @@ SVM就是试图把棍放在最佳位置，好让在棍的两边有尽可能大�
 	\end{figure}
 
 \end{frame} 
+
+\begin{frame}
+\frametitle{间隔与支持向量}
+空间中任意点$\boldsymbol{x}$实际上是一个向量，其到超平面的距离为：
+\[r=\frac{\boldsymbol{w}^T\boldsymbol{x}+b}{\|\boldsymbol{w}\|}\]
+	\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.5\linewidth]{partition/img/svm_11.jpg}  
+%	\caption{this is a figure demo}
+%	\label{fig:label}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{间隔与支持向量}
+那么，如果这个超平面分类成功，我们令
+\[\begin{cases}
+\boldsymbol{w}^T\boldsymbol{x}+b\geq+1,\ y_i=+1\ ;\\
+\boldsymbol{w}^T\boldsymbol{x}+b\leq-1,\ y_i=-1\ .
+\end{cases} \]
+
+	\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.5\linewidth]{partition/img/svm_11.jpg}  
+%	\caption{this is a figure demo}
+%	\label{fig:label}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{间隔与支持向量}
+
+这样，那些使等号成立的点，也即距离超平面最近的点称作支持向量 (support vector)，两个类到超平面距离之和也即两类之间的间隔 (margin) 是
+\[
+\gamma=\frac{2}{\|\boldsymbol{w}\|}
+\]
+训练支持向量机，实际上是希望找到具有最大间隔的划分超平面，即训练目标是在满足分类任务的情况下最大化$\gamma$，也即最大化$\|\boldsymbol{w\|}^{-1}$，也即最小化$\|\boldsymbol{w}\|^2$。
+SVM的基本型就是:
+
+\begin{gather*}
+\min\limits_{\boldsymbol{w},b} \frac{1}{2}\|\boldsymbol{w}\|^2\\
+s.t.\ y_i(\boldsymbol{w}^T\boldsymbol{x}_i+b)\geq1,\ i=1,2,…,m
+\end{gather*}
+
+%	\begin{figure}[ht]
+%	\centering
+%	\includegraphics[width=0.3\linewidth]{partition/img/svm_11.jpg}  
+%%	\caption{this is a figure demo}
+%%	\label{fig:label}
+%	\end{figure}
+\end{frame}
