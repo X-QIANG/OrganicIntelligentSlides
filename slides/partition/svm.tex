@@ -217,7 +217,7 @@ SVM的基本型是一个凸二次规划问题，可用现成的优化计算进�
 其中$\boldsymbol{\alpha} = (\alpha_1;\alpha_2;\dots;\alpha_m)$.令$\mathcal{L}(\boldsymbol{w},b,\boldsymbol{\alpha})$对$\boldsymbol{w}$和$b$的偏导为零可得
 \begin{align*}
 \boldsymbol{w} &= \sum_{i=1}^n\alpha_i y_i \boldsymbol{x}_i\ ,\\
-0&=\sum_{i=1}^m\alpha_iyi\ .
+0&=\sum_{i=1}^m\alpha_iy_i\ .
 \end{align*}
 
 \end{frame}
@@ -290,7 +290,7 @@ y_if(\boldsymbol{x_i})-1\geq 0\ ;\\
   &\alpha_i\geq 0, i=1,2,\ldots,m
  \end{align*}
 
- 很直接的想法是，我先通过$\phi(x)$将x映射到高维空间，然后再做内积运算，但在这种运算方式并不推荐，二维空间如果选择一阶二阶的组合就有5个维度，如果将维数和组合复杂度提高的话，那么映射的空间维度就会爆炸性的增长，从而为计算带来了很大的困难。那么此时我们就可以用核函数的方法来解决这类问题.
+ 很直接的想法是，先通过$\phi(x)$将x映射到高维空间，然后再做内积运算，但在这种运算方式并不推荐，二维空间如果选择一阶二阶的组合就有5个维度，如果将维数和组合复杂度提高的话，那么映射的空间维度就会爆炸性的增长，从而为计算带来了很大的困难。那么此时我们就可以用核函数的方法来解决这类问题.
 \end{frame}
 
 
@@ -346,7 +346,7 @@ f(x)&=\boldsymbol{w}^T\phi(\boldsymbol{x})+b\\
 \[
 y_i(w^Tx_i+b)\geq 1-\xi_i, \quad i=1,\ldots,n
 \]
-其中C是一个预先设定的值，很明显，当C无穷大时，就代表了 $\xi_i=0$ ，即是之前的那种情况。那么优化问题完整的写出来：
+$\xi_i\geq 0$是一个松弛变量，即允许$ x_i$ 偏离的量，但同样的我们也要使 $\xi_i$ 的和最小，那么优化问题完整的写出来：
 
 \begin{align*}
 \min & \frac{1}{2}\|w\|^2 + C\sum_{i=1}^n\xi_i \\
@@ -354,6 +354,7 @@ y_i(w^Tx_i+b)\geq 1-\xi_i, \quad i=1,\ldots,n
 & \xi_i \geq 0, i=1,\ldots,n 
 \end{align*}
 
+其中C是一个预先设定的值，很明显，当C无穷大时，就代表了 $\xi_i=0$ ，即是之前的那种情况。
 
 \end{frame}
 
@@ -366,7 +367,7 @@ y_i(w^Tx_i+b)\geq 1-\xi_i, \quad i=1,\ldots,n
 \mathcal{L}(w,b,\xi,\alpha,r)=\frac{1}{2}\|w\|^2 + C\sum_{i=1}^n\xi_i – \sum_{i=1}^n\alpha_i \left(y_i(w^Tx_i+b)-1+\xi_i\right) – \sum_{i=1}^n r_i\xi_i
 \]
 
-求导可得:
+$\mathcal{L}(w,b,\xi,\alpha,r)$对$w,b,\xi_i$求偏导可得:
 
 \begin{align*}
 \frac{\partial \mathcal{L}}{\partial w}=0 &\Rightarrow w=\sum_{i=1}^n \alpha_i y_i x_i \\
@@ -387,5 +388,5 @@ y_i(w^Tx_i+b)\geq 1-\xi_i, \quad i=1,\ldots,n
 s.t., &0\leq \alpha_i\leq C, i=1,\ldots,n \\
 &\sum_{i=1}^n\alpha_iy_i = 0
 \end{align*}
-那么对于任意样本$(x_i,y_i)$ ，总有 $a_i=0$ 或$ y_if(x_i) = 1-\xi_i$  ，若 $a_i=0$ ，则样本不会对$ f(x)$ 有影响；若$ a_i>0$ ，则必有$ y_if(x_i) = 1-\xi_i$ ，即该样本就是支持向量。若 $a_i<C$ ，则有 $\xi_i=0$ ，即该样本落在间隔界线上，若 $a_i=C$ ，则样本落在间隔内部。
+那么对于任意样本$(x_i,y_i)$ ，总有 $\alpha_i=0$ 或$ y_if(x_i) = 1-\xi_i$  ，若 $a_i=0$ ，则样本不会对$ f(x)$ 有影响；若$ a_i>0$ ，则必有$ y_if(x_i) = 1-\xi_i$ ，即该样本就是支持向量。若 $\alpha_i<C$ ，则有 $\xi_i=0$ ，即该样本落在间隔界线上，若 $\alpha_i=C$ ，则样本落在间隔内部。
 \end{frame}
